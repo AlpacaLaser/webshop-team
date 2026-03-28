@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  devcontainer:
+    image: mcr.microsoft.com/devcontainers/universal:2
+    volumes:
+      - ../:/workspace:cached
+    command: sleep infinity
+    networks:
+      - webshop-network
+
+  mongodb:
+    image: mongo:8
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - webshop-network
+
+volumes:
+  mongodb-data:
+
+networks:
+  webshop-network:
+    driver: bridge
