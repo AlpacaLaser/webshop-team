@@ -59,3 +59,33 @@ fix:   → hibajavítás
 docs:  → dokumentáció
 chore: → konfiguráció, beállítások
 ```
+## Architektúra
+
+- frontend/ → Angular 21 (port: 4200)
+- backend/ → ASP.NET 10 Web API (port: 5151)
+- mcp-server/ → Node.js MCP szerver (port: 3000)
+- mongodb → MongoDB 8 (port: 27017)
+
+## Előkövetelmények
+
+### Docker Compose telepítéshez
+| Eszköz | Letöltés | Leírás |
+|--------|----------|--------|
+| Docker Desktop | [letöltés](https://www.docker.com/products/docker-desktop/) | Konténerek futtatásához |
+| Git | [letöltés](https://git-scm.com/downloads) | Verziókezelés |
+
+### Fejlesztői környezethez (Dev Container)
+| Eszköz | Letöltés | Leírás |
+|--------|----------|--------|
+| Docker Desktop | [letöltés](https://www.docker.com/products/docker-desktop/) | Konténerek futtatásához |
+| VS Code | [letöltés](https://code.visualstudio.com/) | Fejlesztői editor |
+| Dev Containers extension | [letöltés](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) | Dev Container támogatás |
+| Git | [letöltés](https://git-scm.com/downloads) | Verziókezelés |
+
+### Kubernetes telepítéshez
+| Eszköz | Letöltés | Leírás |
+|--------|----------|--------|
+| Docker Desktop | [letöltés](https://www.docker.com/products/docker-desktop/) | Konténerek futtatásához |
+| Git | [letöltés](https://git-scm.com/downloads) | Verziókezelés |
+| kubectl | [letöltés](https://kubernetes.io/docs/tasks/tools/) | Kubernetes CLI |
+| minikube | [letöltés](https://minikube.sigs.k8s.io/docs/start/) | Helyi Kubernetes cluster |
