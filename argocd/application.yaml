@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: webshop-team
+  namespace: argocd
+spec:
+  project: default
+
+  # Honnan szedje a manifesteket
+  source:
+    repoURL: https://github.com/AlpacaLaser/webshop-team.git
+    targetRevision: HEAD
+    path: k8s
+
+  # Hova deployoljon
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: webshop
+
+  # Automatikus szinkronizálás
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
