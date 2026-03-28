@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:8
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - webshop-network
+
+  backend:
+    build: ./backend
+    ports:
+      - "5151:5151"
+    environment:
+      - MongoDB__ConnectionString=mongodb://mongodb:27017
+      - MongoDB__DatabaseName=webshop
+      - ASPNETCORE_URLS=http://+:5151
+    depends_on:
+      - mongodb
+    networks:
+      - webshop-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - webshop-network
+
+  mcp-server:
+    build: ./mcp-server
+    ports:
+      - "3000:3000"
+    environment:
+      - API_URL=http://backend:5151/api/product
+    depends_on:
+      - backend
+    networks:
+      - webshop-network
+
+volumes:
+  mongodb-data:
+
+networks:
+  webshop-network:
+    driver: bridge
