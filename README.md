@@ -1,5 +1,15 @@
-# webshop-team
-Full-stack webshop alkalmazás - Angular 21, ASP.NET 10, MongoDB 8, Docker, Kubernetes.
+# Webshop Team
+
+Full-stack webshop alkalmazás - Angular 21, ASP.NET 10, MongoDB 8, Docker, Kubernetes, ArgoCD.
+
+## Csapat
+
+| Feladat | Leírás |
+|---------|--------|
+| DevOps & Setup | Dev Container, Docker, CI/CD, Kubernetes, ArgoCD |
+| Backend | ASP.NET 10 Web API, MongoDB |
+| Frontend | Angular 21, Bootstrap |
+| MCP & Docs | MCP szerver, Dokumentáció |
 
 ## Csapatmunka
 
@@ -34,7 +44,7 @@ mcp-server/  → MCP fejlesztő
 ```bash
 git add .
 git commit -m "feat: leírás mit csináltál"
-git push origin feature/backend  # vagy frontend/mcp
+git push origin feature/backend
 ```
 
 #### 5. Pull Request nyitása
