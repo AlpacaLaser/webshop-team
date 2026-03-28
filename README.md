@@ -1,2 +1,51 @@
 # webshop-team
 Full-stack webshop alkalmazás - Angular 21, ASP.NET 10, MongoDB 8, Docker, Kubernetes.
+
+## Csapatmunka
+
+### Hogyan dolgozz a projekten?
+
+#### 1. Klónozd le a repót
+```bash
+git clone https://github.com/AlpacaLaser/webshop-team.git
+cd webshop-team
+```
+
+#### 2. Váltj a saját ágadra
+```bash
+# Backend fejlesztő:
+git checkout feature/backend
+
+# Frontend fejlesztő:
+git checkout feature/frontend
+
+# MCP fejlesztő:
+git checkout feature/mcp
+```
+
+#### 3. Dolgozz a saját mappádban
+```
+backend/     → Backend fejlesztő
+frontend/    → Frontend fejlesztő
+mcp-server/  → MCP fejlesztő
+```
+
+#### 4. Commitolj rendszeresen
+```bash
+git add .
+git commit -m "feat: leírás mit csináltál"
+git push origin feature/backend  # vagy frontend/mcp
+```
+
+#### 5. Pull Request nyitása
+- GitHub-on: **Compare & pull request**
+- Leírd mit csináltál
+- Várj review-ra
+
+### Commit üzenetek konvenciója
+```
+feat:  → új funkció
+fix:   → hibajavítás
+docs:  → dokumentáció
+chore: → konfiguráció, beállítások
+```
