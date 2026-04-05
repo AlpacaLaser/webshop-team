@@ -1,15 +1,16 @@
-version: '3.8'
-
 services:
+  # MongoDB adatbázis
   mongodb:
     image: mongo:8
     ports:
       - "27017:27017"
     volumes:
       - mongodb-data:/data/db
-    networks:
+       - ./mongo-init:/docker-entrypoint-initdb.d:ro
+   networks:
       - webshop-network
 
+  # Backend
   backend:
     build: ./backend
     ports:
@@ -23,6 +24,7 @@ services:
     networks:
       - webshop-network
 
+  # Frontend
   frontend:
     build: ./frontend
     ports:
@@ -32,6 +34,7 @@ services:
     networks:
       - webshop-network
 
+  # MCP szerver
   mcp-server:
     build: ./mcp-server
     ports:

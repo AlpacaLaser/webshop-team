@@ -15,6 +15,7 @@ services:
       - "27017:27017"
     volumes:
       - mongodb-data:/data/db
+      - ../mongo-init:/docker-entrypoint-initdb.d:ro
     networks:
       - webshop-network
 
