@@ -1,0 +1,28 @@
+# MongoDB beállítások
+mongodb:
+  image: mongo:8
+  port: 27017
+  storage: 1Gi
+
+# Backend beállítások
+backend:
+  image: ghcr.io/alpacalaser/webshop-team-backend:latest
+  port: 5151
+  replicas: 1
+
+# Frontend beállítások
+frontend:
+  image: ghcr.io/alpacalaser/webshop-team-frontend:latest
+  port: 80
+  replicas: 1
+  nodePort: 30080
+
+# MCP szerver beállítások
+mcpServer:
+  image: ghcr.io/alpacalaser/webshop-team-mcp-server:latest
+  port: 3000
+  replicas: 1
+
+# MongoDB kapcsolat
+mongodbConnectionString: "mongodb://mongodb:27017"
+mongodbDatabaseName: "webshop"

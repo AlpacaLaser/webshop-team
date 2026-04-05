@@ -6,18 +6,18 @@ metadata:
 spec:
   project: default
 
-  # Honnan szedje a manifesteket
   source:
     repoURL: https://github.com/AlpacaLaser/webshop-team.git
     targetRevision: HEAD
-    path: k8s
+    path: helm/webshop
+    helm:
+      valueFiles:
+        - values.yaml
 
-  # Hova deployoljon
   destination:
     server: https://kubernetes.default.svc
     namespace: webshop
 
-  # Automatikus szinkronizálás
   syncPolicy:
     automated:
       prune: true
