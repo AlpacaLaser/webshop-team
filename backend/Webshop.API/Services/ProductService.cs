@@ -1,3 +1,6 @@
+using MongoDB.Driver;
+using Webshop.API.Models;
+
 namespace Webshop.API.Services;
 
 public class ProductService
