@@ -1,3 +1,5 @@
+using Webshop.API.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<ProductService>();
