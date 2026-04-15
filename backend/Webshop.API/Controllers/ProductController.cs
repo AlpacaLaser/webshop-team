@@ -25,4 +25,12 @@ public class ProductController : ControllerBase
     var product = await _productService.GetByIdAsync(id);
     return product is null ? NotFound() : Ok(product);
   }
+
+  [HttpPost]
+  public async Task<ActionResult<Product>> Create(Product product)
+  {
+    await _productService.CreateAsync(product);
+    return CreatedAtAction(nameof(GetById), new { id = product.Id }, product);
+  }
+
 }

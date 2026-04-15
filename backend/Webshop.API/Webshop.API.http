@@ -1,8 +1,8 @@
 ### variables
-@baseUrl = http://localhost:5151
+@baseUrl = http://localhost:5107
 @productId = IDE_MAJD_ID_KERÜL
 
-### 1. test get products
+### 1. test add product
 POST {{baseUrl}}/api/product
 Content-Type: application/json
 
@@ -15,6 +15,6 @@ Content-Type: application/json
   "imageUrl": "https://img.freepik.com/free-photo/laptop-with-sun-background_1232-429.jpg"
 }
 
-### 2. test add product
+### 2. test get products
 GET {{baseUrl}}/api/product
 Accept: application/json
