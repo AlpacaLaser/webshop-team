@@ -8,7 +8,7 @@ Content-Type: application/json
 
 {
   "name": "Laptop - Lenovo XY",
-  "decsription": "Nagy teljesítményű laptop",
+  "description": "Nagy teljesítményű laptop",
   "price": 2000.50,
   "category": "Elektronika",
   "stock": 5,
