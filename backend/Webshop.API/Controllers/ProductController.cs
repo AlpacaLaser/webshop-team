@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Mvc;
+using Webshop.API.Models;
+using Webshop.API.Services;
+
 namespace Webshop.API.Controllers;
 
 [ApiController]
