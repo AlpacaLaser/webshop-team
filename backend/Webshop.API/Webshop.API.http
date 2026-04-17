@@ -1,0 +1,20 @@
+### variables
+@baseUrl = http://localhost:5107
+@productId = IDE_MAJD_ID_KERÜL
+
+### 1. test add product
+POST {{baseUrl}}/api/product
+Content-Type: application/json
+
+{
+  "name": "Laptop - Lenovo XY",
+  "description": "Nagy teljesítményű laptop",
+  "price": 2000.50,
+  "category": "Elektronika",
+  "stock": 5,
+  "imageUrl": "https://img.freepik.com/free-photo/laptop-with-sun-background_1232-429.jpg"
+}
+
+### 2. test get products
+GET {{baseUrl}}/api/product
+Accept: application/json
