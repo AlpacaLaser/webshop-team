@@ -3,7 +3,6 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "devcontainer",
   "workspaceFolder": "/workspace",
-
   "customizations": {
     "vscode": {
       "extensions": [
@@ -14,7 +13,11 @@
       ]
     }
   },
-
-  "forwardPorts": [4200, 5151, 3000, 27017],
+  "forwardPorts": [
+    4200,
+    5151,
+    3000,
+    27017
+  ],
   "postCreateCommand": "echo 'Környezet kész! 🚀'"
 }

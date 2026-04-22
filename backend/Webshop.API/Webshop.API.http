@@ -1,5 +1,5 @@
 ### variables
-@baseUrl = http://localhost:5151
+@baseUrl = http://localhost:5107
 @productId = IDE_MAJD_ID_KERÜL
 
 ### 1. test add product
@@ -15,6 +15,44 @@ Content-Type: application/json
   "imageUrl": "https://img.freepik.com/free-photo/laptop-with-sun-background_1232-429.jpg"
 }
 
-### 2. test get products
+### 2. test add second product
+POST {{baseUrl}}/api/product
+Content-Type: application/json
+
+{
+  "name": "Laptop - Lenovo XY",
+  "description": "Nagy teljesítményű laptop",
+  "price": 2000.50,
+  "category": "Elektronika",
+  "stock": 5,
+  "imageUrl": "https://img.freepik.com/free-photo/laptop-with-sun-background_1232-429.jpg"
+}
+
+### 3. test get products
 GET {{baseUrl}}/api/product
+Accept: application/json
+
+### 4. test get by id
+# copy on of the IDs after post 
+GET {{baseUrl}}/api/product/{{productId}}
+Accept: application/json
+
+### 5. test update
+PUT {{baseUrl}}/api/product/{{productId}}
+Content-Type: application/json
+
+{
+  "name": "Laptop - UPDATED",
+  "description": "Frissített leírás",
+  "price": 2500.99,
+  "category": "Elektronika",
+  "stock": 10,
+  "imageUrl": "https://img.freepik.com/free-photo/laptop-updated.jpg"
+}
+
+### 6. test delete product
+DELETE {{baseUrl}}/api/product/{{productId}}
+
+### 7. test delete not existing product
+GET {{baseUrl}}/api/product/{{productId}}
 Accept: application/json
