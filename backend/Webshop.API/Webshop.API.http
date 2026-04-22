@@ -1,5 +1,5 @@
 ### variables
-@baseUrl = http://localhost:5107
+@baseUrl = http://localhost:5151
 @productId = IDE_MAJD_ID_KERÜL
 
 ### 1. test add product
