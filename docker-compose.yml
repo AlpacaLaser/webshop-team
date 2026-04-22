@@ -1,13 +1,13 @@
 services:
-  # MongoDB adatbázis
+  # MongoDB adatbï¿½zis
   mongodb:
     image: mongo:8
     ports:
       - "27017:27017"
     volumes:
       - mongodb-data:/data/db
-       - ./mongo-init:/docker-entrypoint-initdb.d:ro
-   networks:
+      - ./mongo-init:/docker-entrypoint-initdb.d:ro
+    networks:
       - webshop-network
 
   # Backend
@@ -48,6 +48,7 @@ services:
 
 volumes:
   mongodb-data:
+
 
 networks:
   webshop-network:
