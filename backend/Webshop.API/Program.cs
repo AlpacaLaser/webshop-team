@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<ProductService>();
 builder.Services.AddControllers();
-//builder.Services.AddOpenApi();
+builder.Services.AddOpenApi();
 
 builder.Services.AddCors(options =>
 {
@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-//app.MapOpenApi();
+app.MapOpenApi();
 app.UseCors("AllowAngular");
 app.UseAuthorization();
 app.MapControllers();

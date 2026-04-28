@@ -9,6 +9,9 @@ public class ProductService
 
   public ProductService(IConfiguration config)
   {
+    Console.WriteLine("MongoDB ConnectionString: " + config["MongoDB:ConnectionString"]);
+    Console.WriteLine("MongoDB DatabaseName: " + config["MongoDB:DatabaseName"]);
+
     var client = new MongoClient(config["MongoDB:ConnectionString"]);
     var database = client.GetDatabase(config["MongoDB:DatabaseName"]);
     _products = database.GetCollection<Product>("products");

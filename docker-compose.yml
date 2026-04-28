@@ -33,7 +33,6 @@ services:
       - backend
     networks:
       - webshop-network
-
   # MCP szerver
   #mcp-server:
   #  build: ./mcp-server

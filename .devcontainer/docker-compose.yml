@@ -22,7 +22,6 @@ services:
 volumes:
   mongodb-data:
 
-
 networks:
   webshop-network:
     driver: bridge
