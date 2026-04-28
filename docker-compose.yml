@@ -4,6 +4,8 @@ services:
     image: mongo:8
     ports:
       - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: webshop
     volumes:
       - mongodb-data:/data/db
       - ./mongo-init:/docker-entrypoint-initdb.d:ro
@@ -34,16 +36,16 @@ services:
     networks:
       - webshop-network
   # MCP szerver
-  #mcp-server:
-  #  build: ./mcp-server
-  #  ports:
-  #    - "3000:3000"
-  #  environment:
-  #    - API_URL=http://backend:5151/api/product
-  #  depends_on:
-  #    - backend
-  #  networks:
-  #    - webshop-network
+  mcp-server:
+    build: ./mcp-server
+    ports:
+      - "3000:3000"
+    environment:
+      - API_URL=http://backend:5151/api/product
+    depends_on:
+      - backend
+    networks:
+      - webshop-network
 
 volumes:
   mongodb-data:
