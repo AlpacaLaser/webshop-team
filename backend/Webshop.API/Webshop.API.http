@@ -1,6 +1,6 @@
 ### variables
 @baseUrl = http://localhost:5107
-@productId = 69e968158e26c0bfa50a9c6c
+@productId = 69f10abaae3f10eca9ba6005
 
 ### 1. test add product
 POST {{baseUrl}}/api/product
