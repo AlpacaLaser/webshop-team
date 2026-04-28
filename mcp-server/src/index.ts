@@ -90,7 +90,10 @@ server.tool(
   'search_products',
   'Termékek keresése név alapján',
   {
-    query: z.string().describe('Keresési kifejezés')
+    query: z
+		.string()
+		.min(1)
+		.describe('Keresési kifejezés, például: laptop, telefon')
   },
   async ({ query }) => {
     try {
@@ -131,7 +134,12 @@ server.tool(
   'get_low_stock',
   'Alacsony készletű termékek listája',
   {
-    threshold: z.number().describe('Készlet limit').default(5)
+    threshold: z
+		.number()
+		.int()
+		.min(0)
+		.default(5)
+		.describe('Készletérték. Azokat a termékeket adja vissza, ahol stock kisebb, mint a threshold.')
   },
   async ({ threshold }) => {
     try {
@@ -151,6 +159,94 @@ server.tool(
   }
 );
 
+server.tool(
+  'get_products_by_category',
+  'Termékek lekérése kategória alapján',
+  {
+    category: z
+      .string()
+      .min(1)
+      .describe('A termékkategória neve, például: 3D nyomtató, Elektronika')
+  },
+  async ({ category }) => {
+    try {
+      const products = await fetchProducts();
+
+      const normalizedCategory = category.trim().toLowerCase();
+
+      const filtered = products.filter(p =>
+        (p.category ?? '').toLowerCase() === normalizedCategory
+      );
+
+      return jsonResponse(filtered);
+    } catch (err) {
+      return errorResponse(err);
+    }
+  }
+);
+
+server.tool(
+  'filter_products',
+  'Termékek szűrése név, kategória, ár és készlet alapján',
+  {
+    query: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Opcionális keresési kifejezés a terméknévben'),
+
+    category: z
+      .string()
+      .min(1)
+      .optional()
+      .describe('Opcionális kategória szűrő'),
+
+    maxPrice: z
+      .number()
+      .min(0)
+      .optional()
+      .describe('Maximális ár'),
+
+    inStockOnly: z
+      .boolean()
+      .default(false)
+      .describe('Ha true, csak készleten lévő termékeket ad vissza')
+  },
+  async ({ query, category, maxPrice, inStockOnly }) => {
+    try {
+      const products = await fetchProducts();
+
+      const filtered = products.filter(p => {
+        const name = (p.name ?? '').toLowerCase();
+        const productCategory = (p.category ?? '').toLowerCase();
+        const price = Number(p.price ?? 0);
+        const stock = Number(p.stock ?? 0);
+
+        if (query && !name.includes(query.trim().toLowerCase())) {
+          return false;
+        }
+
+        if (category && productCategory !== category.trim().toLowerCase()) {
+          return false;
+        }
+
+        if (maxPrice !== undefined && price > maxPrice) {
+          return false;
+        }
+
+        if (inStockOnly && stock <= 0) {
+          return false;
+        }
+
+        return true;
+      });
+
+      return jsonResponse(filtered);
+    } catch (err) {
+      return errorResponse(err);
+    }
+  }
+);
 
 async function main() {
   const transport = new StdioServerTransport();
