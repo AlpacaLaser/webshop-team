@@ -1,0 +1,132 @@
+<div class="container mt-4 mb-5">
+  <h1><i class="bi bi-gear"></i> Admin</h1>
+
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-primary text-white">Új termék</div>
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Név</label>
+          <input type="text" class="form-control" [(ngModel)]="newProduct.name" placeholder="Termék neve">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Kategória</label>
+          <input type="text" class="form-control" [(ngModel)]="newProduct.category" placeholder="Kategória">
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">Leírás</label>
+          <textarea class="form-control" [(ngModel)]="newProduct.description" placeholder="Rövid leírás"></textarea>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Ár (Ft)</label>
+          <input type="number" class="form-control" [(ngModel)]="newProduct.price" placeholder="Pl. 5000">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Készlet (db)</label>
+          <input type="number" class="form-control" [(ngModel)]="newProduct.stock" placeholder="Pl. 10">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Kép URL</label>
+          <input type="text" class="form-control" [(ngModel)]="newProduct.imageUrl" placeholder="https://...">
+        </div>
+
+        <div class="col-12">
+          <button class="btn btn-primary" (click)="createProduct()">Mentés</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @if (editingProduct) {
+    <div class="card mb-4 shadow-sm border-warning">
+      <div class="card-header bg-warning">Termék szerkesztése</div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Név</label>
+            <input type="text" class="form-control" [(ngModel)]="editingProduct.name" placeholder="Termék neve">
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Kategória</label>
+            <input type="text" class="form-control" [(ngModel)]="editingProduct.category" placeholder="Kategória">
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Leírás</label>
+            <textarea class="form-control" [(ngModel)]="editingProduct.description" placeholder="Rövid leírás"></textarea>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Ár (Ft)</label>
+            <input type="number" class="form-control" [(ngModel)]="editingProduct.price" placeholder="Pl. 5000">
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Készlet (db)</label>
+            <input type="number" class="form-control" [(ngModel)]="editingProduct.stock" placeholder="Pl. 10">
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Kép URL</label>
+            <input type="text" class="form-control" [(ngModel)]="editingProduct.imageUrl" placeholder="https://...">
+          </div>
+
+          <div class="col-12 d-flex gap-2">
+            <button class="btn btn-success" (click)="saveEdit()">Módosítás mentése</button>
+            <button class="btn btn-outline-secondary" (click)="cancelEdit()">Mégse</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (isLoading) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary"></div>
+    </div>
+  } @else {
+    <div class="table-responsive">
+      <table class="table table-hover align-middle bg-white shadow-sm">
+        <thead class="table-dark">
+          <tr>
+            <th>Kép</th>
+            <th>Név</th>
+            <th>Kategória</th>
+            <th>Ár</th>
+            <th>Készlet</th>
+            <th>Műveletek</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (product of products; track product.id) {
+            <tr>
+              <td>
+                <img [src]="product.imageUrl || 'https://placehold.co/80x80?text=Nincs+kep'"
+                     [alt]="product.name || product.nane || 'Termék'"
+                     style="width:60px;height:60px;object-fit:cover;">
+              </td>
+              <td>{{ product.name || product.nane || 'Névtelen termék' }}</td>
+              <td>{{ product.category }}</td>
+              <td>{{ product.price | number:'1.0-0' }} Ft</td>
+              <td>{{ product.stock }} db</td>
+              <td>
+                <button class="btn btn-warning btn-sm me-1" (click)="startEdit(product)">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-danger btn-sm" (click)="deleteProduct(product.id!)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
