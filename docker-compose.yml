@@ -1,5 +1,5 @@
 services:
-  # MongoDB adatb�zis
+  # MongoDB adatbázis
   mongodb:
     image: mongo:8
     ports:
@@ -10,9 +10,9 @@ services:
     networks:
       - webshop-network
 
-  # Backend
+  # Backend API
   backend:
-    build: ./backend
+    build: ./backend/Webshop.API
     ports:
       - "5151:5151"
     environment:
@@ -26,29 +26,27 @@ services:
 
   # Frontend
   frontend:
-    build: ./frontend
+    build: ./frontend/webshop-frontend
     ports:
       - "80:80"
     depends_on:
       - backend
     networks:
       - webshop-network
-
   # MCP szerver
-  mcp-server:
-    build: ./mcp-server
-    ports:
-      - "3000:3000"
-    environment:
-      - API_URL=http://backend:5151/api/product
-    depends_on:
-      - backend
-    networks:
-      - webshop-network
+  #mcp-server:
+  #  build: ./mcp-server
+  #  ports:
+  #    - "3000:3000"
+  #  environment:
+  #    - API_URL=http://backend:5151/api/product
+  #  depends_on:
+  #    - backend
+  #  networks:
+  #    - webshop-network
 
 volumes:
   mongodb-data:
-
 
 networks:
   webshop-network:
