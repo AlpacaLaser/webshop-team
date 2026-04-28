@@ -10,45 +10,100 @@ const server = new McpServer({
   version: '1.0.0'
 });
 
+//HELPER FUNCTIONS:
+async function fetchProducts() {
+  console.error("Calling API:", API_URL);
+
+  const response = await axios.get(API_URL, {
+    timeout: 5000
+  });
+
+  if (!Array.isArray(response.data)) {
+    throw new Error("API response is not an array");
+  }
+
+  return response.data;
+}
+
+function errorResponse(err: unknown) {
+  const message = err instanceof Error ? err.message : String(err);
+
+  console.error("Tool error:", message);
+
+  return {
+    content: [{ type: 'text' as const, text: message }],
+    isError: true
+  };
+}
+
+async function fetchProducts() {
+  console.error("Calling API:", API_URL);
+
+  const response = await axios.get(API_URL, {
+    timeout: 5000
+  });
+
+  if (!Array.isArray(response.data)) {
+    throw new Error("API response is not an array");
+  }
+
+  return response.data;
+}
+
+function jsonResponse(data: unknown) {
+  return {
+    content: [
+      {
+        type: 'text' as const,
+        text: JSON.stringify(data, null, 2)
+      }
+    ]
+  };
+}
+
+
+
+//COMMANDS:
 server.tool(
-  'get_products', 
-  'Lekéri az összes terméket a webshopból', 
-  {}, 
+  'get_products',
+  'Lekéri az összes terméket a webshopból',
+  {},
   async () => {
-	  try {
-		console.error("Calling API:", API_URL);
-
-		const response = await axios.get(API_URL);
-
-		console.error("Response OK");
-
-		return {
-		  content: [{ type: 'text', text: JSON.stringify(response.data, null, 2) }]
-		};
-	  } catch (err: any) {
-		console.error("ERROR:", err.message);
-		console.error(err);
-
-		return {
-		  content: [{ type: 'text', text: err.message }],
-		  isError: true
-		};
-	  }
+    try {
+      const products = await fetchProducts();
+      const validProducts = products.filter(p => p.name && p.category);
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(validProducts, null, 2)
+          }
+        ]
+      };
+    } catch (err) {
+      return errorResponse(err);
+    }
   }
 );
 
 server.tool(
   'search_products',
   'Termékek keresése név alapján',
-  { query: z.string().describe('Keresési kifejezés') },
+  {
+    query: z.string().describe('Keresési kifejezés')
+  },
   async ({ query }) => {
-    const response = await axios.get(API_URL);
-    const filtered = response.data.filter((p: any) =>
-      p.name.toLowerCase().includes(query.toLowerCase())
-    );
-    return {
-      content: [{ type: 'text', text: JSON.stringify(filtered, null, 2) }]
-    };
+    try {
+      const products = await fetchProducts();
+
+      const filtered = products.filter(p =>
+        (p.name ?? '').toLowerCase().includes(query.toLowerCase())
+      );
+
+      return jsonResponse(filtered);
+    } catch (err) {
+      return errorResponse(err);
+    }
   }
 );
 
@@ -57,29 +112,45 @@ server.tool(
   'Statisztikák kategóriánként',
   {},
   async () => {
-    const response = await axios.get(API_URL);
-    const stats: Record<string, number> = {};
-    response.data.forEach((p: any) => {
-      stats[p.category] = (stats[p.category] || 0) + 1;
-    });
-    return {
-      content: [{ type: 'text', text: JSON.stringify(stats, null, 2) }]
-    };
+    try {
+      const products = await fetchProducts();
+      const stats: Record<string, number> = {};
+
+      for (const p of products) {
+        const category = (p.category ?? '').trim() || 'Ismeretlen';
+        stats[category] = (stats[category] || 0) + 1;
+      }
+      return jsonResponse(stats);
+    } catch (err) {
+      return errorResponse(err);
+    }
   }
 );
 
 server.tool(
   'get_low_stock',
   'Alacsony készletű termékek listája',
-  { threshold: z.number().describe('Készlet limit').default(5) },
+  {
+    threshold: z.number().describe('Készlet limit').default(5)
+  },
   async ({ threshold }) => {
-    const response = await axios.get(API_URL);
-    const lowStock = response.data.filter((p: any) => p.stock <= threshold);
-    return {
-      content: [{ type: 'text', text: JSON.stringify(lowStock, null, 2) }]
-    };
+    try {
+      const products = await fetchProducts();
+
+      const lowStock = products.filter(p => {
+        const stock = Number(p.stock ?? 0);
+		if (isNaN(stock)) return false;
+		
+        return stock <= threshold;
+      });
+
+      return jsonResponse(lowStock);
+    } catch (err) {
+      return errorResponse(err);
+    }
   }
 );
+
 
 async function main() {
   const transport = new StdioServerTransport();
