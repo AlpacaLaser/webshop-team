@@ -3,7 +3,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import axios from 'axios';
 import { z } from 'zod';
 
-const API_URL = process.env.API_URL || 'http://localhost:5151/api/product';
+const API_URL = process.env.API_URL || 'http://backend:5151/api/product';
 
 const server = new McpServer({
   name: 'webshop-mcp',
@@ -11,14 +11,29 @@ const server = new McpServer({
 });
 
 server.tool(
-  'get_products',
-  'Lekéri az összes terméket a webshopból',
-  {},
+  'get_products', 
+  'Lekéri az összes terméket a webshopból', 
+  {}, 
   async () => {
-    const response = await axios.get(API_URL);
-    return {
-      content: [{ type: 'text', text: JSON.stringify(response.data, null, 2) }]
-    };
+	  try {
+		console.error("Calling API:", API_URL);
+
+		const response = await axios.get(API_URL);
+
+		console.error("Response OK");
+
+		return {
+		  content: [{ type: 'text', text: JSON.stringify(response.data, null, 2) }]
+		};
+	  } catch (err: any) {
+		console.error("ERROR:", err.message);
+		console.error(err);
+
+		return {
+		  content: [{ type: 'text', text: err.message }],
+		  isError: true
+		};
+	  }
   }
 );
 
