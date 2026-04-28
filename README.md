@@ -89,3 +89,48 @@ chore: → konfiguráció, beállítások
 | Git | [letöltés](https://git-scm.com/downloads) | Verziókezelés |
 | kubectl | [letöltés](https://kubernetes.io/docs/tasks/tools/) | Kubernetes CLI |
 | minikube | [letöltés](https://minikube.sigs.k8s.io/docs/start/) | Helyi Kubernetes cluster |
+## Az alkalmazás telepítése
+
+### Docker Compose-zal (ajánlott)
+
+#### 1. Repo klónozása
+```bash
+git clone https://github.com/AlpacaLaser/webshop.git
+cd webshop
+```
+
+#### 2. Alkalmazás indítása
+```bash
+docker-compose up -d
+```
+
+#### 3. Megnyitás böngészőben
+- Frontend: http://localhost:80
+- Swagger API: http://localhost:5151/swagger
+
+---
+
+### Fejlesztői módban (Dev Container)
+
+#### 1. Repo klónozása
+```bash
+git clone https://github.com/AlpacaLaser/webshop.git
+cd webshop
+```
+
+#### 2. Dev Container indítása
+- VS Code-ban: **Ctrl+Shift+P** → `Dev Containers: Reopen in Container`
+
+#### 3. Alkalmazás indítása
+```bash
+# MongoDB + Backend
+docker-compose up -d mongodb backend
+
+# Frontend (új terminálban)
+cd frontend
+ng serve --host 0.0.0.0 --proxy-config proxy.conf.json
+```
+
+#### 4. Megnyitás böngészőben
+- Frontend: http://localhost:4200
+- Swagger API: http://localhost:5151/swagg
