@@ -3,8 +3,11 @@ services:
     image: mongo:8
     ports:
       - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: webshop
     volumes:
       - mongodb-data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d:ro
     networks:
       - webshop-network
 
