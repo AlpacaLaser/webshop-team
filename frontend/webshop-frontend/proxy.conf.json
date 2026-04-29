@@ -8,7 +8,7 @@
     }
   },
   "/api": {
-    "target": "http://localhost:5107",
+    "target": "http://localhost:5151",
     "changeOrigin": true,
     "secure": false
   }

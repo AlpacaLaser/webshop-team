@@ -1,18 +1,13 @@
 services:
-  # MongoDB adatbázis
   mongodb:
     image: mongo:8
     ports:
       - "27017:27017"
-    environment:
-      MONGO_INITDB_DATABASE: webshop
     volumes:
       - mongodb-data:/data/db
-      - ./mongo-init:/docker-entrypoint-initdb.d:ro
     networks:
       - webshop-network
 
-  # Backend API
   backend:
     build: ./backend/Webshop.API
     ports:
@@ -26,7 +21,6 @@ services:
     networks:
       - webshop-network
 
-  # Frontend
   frontend:
     build: ./frontend/webshop-frontend
     ports:
@@ -35,7 +29,7 @@ services:
       - backend
     networks:
       - webshop-network
-  # MCP szerver
+
   mcp-server:
     build: ./mcp-server
     ports:
