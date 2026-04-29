@@ -106,7 +106,6 @@ docker-compose up -d
 
 #### 3. Megnyitás böngészőben
 - Frontend: http://localhost:80
-- Swagger API: http://localhost:5151/swagger
 
 ---
 
@@ -133,4 +132,4 @@ ng serve --host 0.0.0.0 --proxy-config proxy.conf.json
 
 #### 4. Megnyitás böngészőben
 - Frontend: http://localhost:4200
-- Swagger API: http://localhost:5151/swagg
+- OpenAPI - JSON: http://localhost:5107/openapi/v1.json - Dev Containerből működik jelenleg, hogy ne legyen publikusan elérhető.
