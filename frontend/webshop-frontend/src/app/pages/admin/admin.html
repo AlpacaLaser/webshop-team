@@ -108,10 +108,10 @@
             <tr>
               <td>
                 <img [src]="product.imageUrl || 'https://placehold.co/80x80?text=Nincs+kep'"
-                     [alt]="product.name || product.nane || 'Termék'"
+                     [alt]="product.name || 'Termék'"
                      style="width:60px;height:60px;object-fit:cover;">
               </td>
-              <td>{{ product.name || product.nane || 'Névtelen termék' }}</td>
+              <td>{{ product.name || 'Névtelen termék' }}</td>
               <td>{{ product.category }}</td>
               <td>{{ product.price | number:'1.0-0' }} Ft</td>
               <td>{{ product.stock }} db</td>

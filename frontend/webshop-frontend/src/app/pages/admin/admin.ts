@@ -24,7 +24,6 @@ export class Admin implements OnInit {
   emptyProduct(): Product {
     return {
       name: '',
-      nane: '',
       description: '',
       price: 0,
       category: '',
@@ -36,8 +35,7 @@ export class Admin implements OnInit {
   normalizeForBackend(product: Product): Product {
     return {
       ...product,
-      name: product.name || product.nane || '',
-      nane: product.name || product.nane || ''
+      name: product.name || ''
     };
   }
 
@@ -75,8 +73,7 @@ export class Admin implements OnInit {
   startEdit(product: Product): void {
     this.editingProduct = {
       ...product,
-      name: product.name || product.nane || '',
-      nane: product.name || product.nane || ''
+      name: product.name || ''
     };
   }
 

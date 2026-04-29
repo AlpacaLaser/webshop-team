@@ -5,7 +5,6 @@ import { Observable, map } from 'rxjs';
 export interface Product {
   id?: string;
   name?: string;
-  nane?: string;
   description: string;
   price: number;
   category: string;
@@ -22,7 +21,7 @@ export class ProductService {
   normalize(product: Product): Product {
     return {
       ...product,
-      name: product.name || product.nane || ''
+      name: product.name || ''
     };
   }
 
@@ -41,7 +40,7 @@ export class ProductService {
   create(product: Product): Observable<Product> {
     return this.http.post<Product>(this.apiUrl, {
       ...product,
-      nane: product.name
+      name: product.name
     }).pipe(
       map((createdProduct) => this.normalize(createdProduct))
     );
@@ -50,7 +49,7 @@ export class ProductService {
   update(id: string, product: Product): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/${id}`, {
       ...product,
-      nane: product.name
+      name: product.name
     });
   }
 
