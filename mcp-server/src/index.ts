@@ -36,20 +36,6 @@ function errorResponse(err: unknown) {
   };
 }
 
-async function fetchProducts() {
-  console.error("Calling API:", API_URL);
-
-  const response = await axios.get(API_URL, {
-    timeout: 5000
-  });
-
-  if (!Array.isArray(response.data)) {
-    throw new Error("API response is not an array");
-  }
-
-  return response.data;
-}
-
 function jsonResponse(data: unknown) {
   return {
     content: [
