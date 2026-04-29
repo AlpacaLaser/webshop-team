@@ -38,7 +38,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - API_URL=http://backend:5151/api/product
+      - API_URL=http://host.docker.internal:5151/api/product
     depends_on:
       - backend
     networks:
