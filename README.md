@@ -122,12 +122,8 @@ cd webshop
 
 #### 3. Alkalmazás indítása
 ```bash
-# MongoDB + Backend
-docker-compose up -d mongodb backend
-
-# Frontend (új terminálban)
-cd frontend
-ng serve --host 0.0.0.0 --proxy-config proxy.conf.json
+# MongoDB + Backend + Frontend
+docker-compose up -d
 ```
 
 #### 4. Megnyitás böngészőben
