@@ -132,4 +132,5 @@ ng serve --host 0.0.0.0 --proxy-config proxy.conf.json
 
 #### 4. Megnyitás böngészőben
 - Frontend: http://localhost:4200
-- OpenAPI - JSON: http://localhost:5107/openapi/v1.json - Dev Containerből működik jelenleg, hogy ne legyen publikusan elérhető.
+- OpenAPI - JSON: http://localhost:5107/openapi/v1.json
+  * Dev Containerből működik jelenleg, hogy ne legyen publikusan elérhető. A json tartalma vizualizálható a https://editor.swagger.io/ oldalon.
